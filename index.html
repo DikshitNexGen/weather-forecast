@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Weather ForeCast</title>
+</head>
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+    <main>
+        <section>
+            <div class="search-container">
+                <label>
+                    Enter a City Name
+                    <input id="city-name" placeholder="E.g. Manesar, Gurgaon"/>
+                </label>
+                <button id="search-btn">Search</button>
+            </div>
+            <hr />
+            <button>Use Current Location</button>
+        </section>
+        <section>
+            <div class="current-city">
+                Manesar
+            </div>
+            <div class="five-day-forecast">
+                <h2>5-Day Forecast</h2>
+                <div class="day-wrapper">
+                    
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>
