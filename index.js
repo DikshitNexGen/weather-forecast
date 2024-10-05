@@ -5,7 +5,7 @@ const cityInput = document.getElementById("city-name");
 
 function renderCurrentDayData(data) {
     const currentDay = document.getElementById("current-day");
-    currentDay.innerHTML = ""
+    currentDay.innerHTML = "";
 
     const currentDayIn = document.createElement("div");
     currentDay.innerHTML = `
@@ -28,19 +28,21 @@ function renderForecastData(data) {
     const forecastWrapper = document.getElementById("day-wrapper");
     forecastWrapper.innerHTML = "";
 
-    const forecastArr = data?.forecast?.forecastday.map((ele, index) => {
-        if (index === 0) return;
+    const forecastArr = data?.forecast?.forecastday
+        .map((ele, index) => {
+            if (index === 0) return;
 
-        return ` 
+            return ` 
         <div class="shadow-2xl rounded-2xl p-6 w-[200px] font-medium">
-            <p >${ele.date}</p>
+            <p >(${ele.date})</p>
             <img class="mb-2 h-[100px]" src="https:${ele?.day?.condition?.icon}"/>
             <p>Temp: ${ele?.day?.avgtemp_c}</p>
             <p>Wind: ${ele?.day?.maxwind_kph} km/h</p>
             <p>Humidity: ${ele?.day?.avghumidity}%</p>
         </div>
         `;
-    }).join("");
+        })
+        .join("");
     forecastWrapper.innerHTML = forecastArr;
 }
 
@@ -55,7 +57,7 @@ function fetchWeatherData(city) {
             return response.json();
         })
         .then((data) => {
-            console.log(data)
+            console.log(data);
             renderCurrentDayData(data);
             renderForecastData(data);
         })
@@ -69,7 +71,7 @@ function successCallback(position) {
     if (latitude && longitude) {
         const latLong = latitude + "," + longitude;
         fetchWeatherData(latLong);
-        cityInput.value = ""
+        cityInput.value = "";
     } else {
         alert("Unable to get current location!");
     }
@@ -90,12 +92,12 @@ searchBtn.addEventListener("click", () => {
 });
 
 cityInput.addEventListener("keydown", (e) => {
-    if(cityInput.value.trim() && e.key === "Enter"){
+    if (cityInput.value.trim() && e.key === "Enter") {
         fetchWeatherData(cityInput.value.trim());
-    }else{
-        return
+    } else if (cityInput.value.trim() === "" && e.key === "Enter") {
+        alert("Please enter a city name!");
     }
-})
+});
 
 currentLocationBtn.addEventListener("click", () => {
     if (navigator.geolocation) {
@@ -105,4 +107,4 @@ currentLocationBtn.addEventListener("click", () => {
     }
 });
 
-fetchWeatherData("Gurgaon")
+fetchWeatherData("Gurgaon");

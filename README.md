@@ -8,6 +8,7 @@ A simple weather dashboard application that allows users to search for weather i
 - **Current Location**: Automatically fetch and display the weather for the user's current location.
 - **Weather Data**: Displays current weather conditions, including temperature, wind speed, humidity, and weather icon.
 - **5-Day Forecast**: Shows the weather forecast for the next five days.
+- **Error Handling**: Added alert messages for error handling.
 
 ## Technologies Used
 
@@ -15,3 +16,7 @@ A simple weather dashboard application that allows users to search for weather i
 - **CSS**: Styled using [Tailwind CSS](https://tailwindcss.com/) for a responsive and modern design.
 - **JavaScript**: Functionality and dynamic updates based on user input and API responses.
 - **WeatherAPI**: External API used to fetch weather data.
+
+## GITHUB
+
+- **Link**: https://github.com/DikshitNexGen/weather-forecast
