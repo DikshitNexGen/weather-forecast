@@ -2,7 +2,19 @@ const searchBtn = document.getElementById("search-btn");
 const currentLocationBtn = document.getElementById("current-location-btn");
 const apiKey = "6c35c0f8dd094b4cbe6160553240310";
 const cityInput = document.getElementById("city-name");
+const dropdown = document.getElementById("dropdown");
+let recentlySearched = [];
 
+// checking whether we have recently searched fields or not
+if (localStorage.getItem("recently")) {
+    recentlySearched = JSON.parse(localStorage.getItem("recently"));
+}
+
+function fillInput(ele) {
+    cityInput.value = ele;
+}
+
+// rendering the current day weather data
 function renderCurrentDayData(data) {
     const currentDay = document.getElementById("current-day");
     currentDay.innerHTML = "";
@@ -24,6 +36,7 @@ function renderCurrentDayData(data) {
     currentDay.appendChild(currentDayIn);
 }
 
+// rendering the 5 days forecast weather data
 function renderForecastData(data) {
     const forecastWrapper = document.getElementById("day-wrapper");
     forecastWrapper.innerHTML = "";
@@ -46,6 +59,7 @@ function renderForecastData(data) {
     forecastWrapper.innerHTML = forecastArr;
 }
 
+// using weatherApi for fetching the weather data of particular city
 function fetchWeatherData(city) {
     const forecastUrl = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=6&aqi=no&alerts=no`;
 
@@ -57,13 +71,13 @@ function fetchWeatherData(city) {
             return response.json();
         })
         .then((data) => {
-            console.log(data);
             renderCurrentDayData(data);
             renderForecastData(data);
         })
         .catch((err) => alert("Enter valid city name!"));
 }
 
+// successCallback function for getting user's current location
 function successCallback(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
@@ -77,28 +91,73 @@ function successCallback(position) {
     }
 }
 
+// errorCallback if unable to get user's current location
 function errorCallback(error) {
     console.log("Error", error.message);
+    alert("Unable to get current location!");
 }
 
+// search button eventListner for displaying weather data
 searchBtn.addEventListener("click", () => {
     const city = cityInput.value.trim();
 
     if (city) {
+        if (!recentlySearched.includes(city)) {
+            recentlySearched.push(city);
+            localStorage.setItem("recently", JSON.stringify(recentlySearched));
+        }
         fetchWeatherData(city);
     } else {
         alert("Please enter a city name!");
     }
 });
 
+// ENTER key press functionality for displaying weather data
 cityInput.addEventListener("keydown", (e) => {
-    if (cityInput.value.trim() && e.key === "Enter") {
-        fetchWeatherData(cityInput.value.trim());
-    } else if (cityInput.value.trim() === "" && e.key === "Enter") {
+    const city = cityInput.value.trim();
+
+    if (city && e.key === "Enter") {
+        if (!recentlySearched.includes(city)) {
+            recentlySearched.push(city);
+            localStorage.setItem("recently", JSON.stringify(recentlySearched));
+        }
+        fetchWeatherData(city);
+    } else if (city === "" && e.key === "Enter") {
         alert("Please enter a city name!");
     }
 });
 
+// dropdown opens up when user clicks on the city input field
+cityInput.addEventListener("focus", () => {
+    if (recentlySearched?.length > 0) {
+        const da = recentlySearched
+            .map((ele) => `<li class="cursor-pointer hover:text-black active:scale-90">${ele}</li>`)
+            .join("");
+        dropdown.innerHTML = `<ul>${da}</ul>`;
+        dropdown.classList.remove("hidden");
+    }
+});
+
+dropdown.addEventListener("click", (event) => {
+    const li = event.target.closest("li");
+    if (li) {
+        const cityName = li.textContent;
+        fillInput(cityName);
+        // dropdown.classList.add("hidden");
+    }
+});
+
+// preventing the event
+dropdown.addEventListener("mousedown", (event) => {
+    event.preventDefault();
+});
+
+// hiding the dropdown if user is not focusing on the input field
+cityInput.addEventListener("blur", () => {
+    dropdown.classList.add("hidden");
+});
+
+// getting user's current location
 currentLocationBtn.addEventListener("click", () => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(successCallback, errorCallback);

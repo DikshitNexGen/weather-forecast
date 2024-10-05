@@ -15,9 +15,12 @@
         </header>
         <main class="w-full flex flex-col items-center">
             <section class="flex gap-4 items-center justify-center w-4/5 p-2 max-[720px]:flex-col max-[720px]:gap-0">
-                <div class="border-2 border-gray-400 bg-white rounded-2xl overflow-hidden">
-                    <input class="px-4 py-2 focus:outline-none" id="city-name" placeholder="Enter city name..." />
-                    <button class="px-4 py-2 border-l-4" id="search-btn">Search</button>
+                <div class="bg-white rounded-2xl relative">
+                    <input class="px-4 py-2 focus:outline-none rounded-2xl w-full" id="city-name" placeholder="Enter city name..." />
+                    <button class="px-4 py-2 rounded-2xl bg-gray-400 w-full border-2 font-semibold active:scale-90" id="search-btn">Search</button>
+                    <div id="dropdown" class="hidden absolute mt-2 bg-blue-100 text-blue-600 p-2 rounded shadow-md w-full max-h-[200px] overflow-y-scroll">
+                        <!-- The dropdown is visible only when input is focused! -->
+                    </div>
                 </div>
                 <p class="text-gray-300">- or -</p>
                 <button class="font-thin text-lg shadow-xl px-4 py-2 rounded-2xl text-white active:scale-90 hover:text-black" id="current-location-btn">Use Current Location</button>
