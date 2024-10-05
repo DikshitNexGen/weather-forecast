@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
-    <title>Weather ForeCast</title>
-</head>
-<body>
-    <header>
-        <h1>Weather Dashboard</h1>
-    </header>
-    <main>
-        <section>
-            <div class="search-container">
-                <label>
-                    Enter a City Name
-                    <input id="city-name" placeholder="E.g. Manesar, Gurgaon"/>
-                </label>
-                <button id="search-btn">Search</button>
-            </div>
-            <hr />
-            <button>Use Current Location</button>
-        </section>
-        <section>
-            <div class="current-city">
-                Manesar
-            </div>
-            <div class="five-day-forecast">
-                <h2>5-Day Forecast</h2>
-                <div class="day-wrapper">
-                    
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="style.css" />
+        <title>Weather ForeCast</title>
+    </head>
+    <body
+        class="bg-[url('/images/pixelcut-export.jpeg')] bg-no-repeat bg-cover bg-center min-h-screen flex flex-col items-center"
+    >
+        <header class="text-center p-2 w-full max-[700px]:py-4">
+            <h1 class="text-4xl font-bold">Weather Dashboard</h1>
+        </header>
+        <main class="w-full flex flex-col items-center">
+            <section class="flex gap-4 items-center justify-center w-4/5 p-2 max-[720px]:flex-col max-[720px]:gap-0">
+                <div class="border-2 border-gray-400 bg-white rounded-2xl overflow-hidden">
+                    <input class="px-4 py-2 focus:outline-none" id="city-name" placeholder="Enter city name..." />
+                    <button class="px-4 py-2 border-l-4" id="search-btn">Search</button>
                 </div>
-            </div>
-        </section>
-    </main>
+                <p class="text-gray-300">- or -</p>
+                <button class="font-thin text-lg shadow-xl px-4 py-2 rounded-2xl text-white active:scale-90 hover:text-black" id="current-location-btn">Use Current Location</button>
+            </section>
+            <section class="flex flex-col items-center w-4/5">
+                <div class="w-full flex justify-center py-12 gap-12 shadow-2xl rounded-2xl max-[590px]:flex-col max-[590px]:items-center max-[590px]:py-0 max-[360px]:px-4" id="current-day">
+                    <!--here the current day weather data is rendering-->
+                </div>
+                <div class="py-6">
+                    <h2 class="text-2xl font-semibold mb-4">5-Day Forecast</h2>
+                    <div id="day-wrapper" class="flex flex-wrap gap-12 justify-center">
+                        <!--here 5 days weather forecast data is rendering-->
+                    </div>
+                </div>
+            </section>
+        </main>
 
-    <script src="index.js"></script>
-</body>
+        <script src="index.js"></script>
+    </body>
 </html>
